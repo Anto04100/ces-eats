@@ -1,28 +1,14 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/home";
 
-function App() {
-  const [tasks, setTasks] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:3000/tasks")  // 🔗 Appel API backend
-      .then(response => response.json())
-      .then(data => setTasks(data))
-      .catch(error => console.error("Erreur API :", error));
-  }, []);
-
+export default function App() {
   return (
-    <div style={{ textAlign: "center", fontFamily: "Arial" }}>
-      <h1>Frontend CES'EATS 🚀</h1>
-      <h2>Liste des tâches :</h2>
-      <ul>
-        {tasks.map(task => (
-          <li key={task._id}>
-            {task.title} - {task.completed ? "✅ Fait" : "❌ À faire"}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/client" element={<h1>Page Client (à venir)</h1>} />
+        <Route path="/restaurant" element={<h1>Page Restaurant (à venir)</h1>} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;
