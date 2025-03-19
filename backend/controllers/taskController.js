@@ -35,3 +35,20 @@ exports.deleteTask = async (req, res) => {
     await Task.findByIdAndDelete(req.params.id);
     res.json({ message: "Tâche supprimée avec succès" });
 };
+
+// 📌 Fonction pour ajouter plusieurs tâches à la base
+exports.seedDatabase = async (req, res) => {
+    try {
+        const tasks = [
+            { title: "Faire les courses", description: "Acheter des fruits et légumes", completed: false },
+            { title: "Apprendre Docker", description: "Regarder un tutoriel sur Docker et Docker Compose", completed: false },
+            { title: "Réviser Express.js", description: "Créer un projet API REST avec Express", completed: true },
+            { title: "Faire du sport", description: "Courir 5 km", completed: false }
+        ];
+
+        await Task.insertMany(tasks);
+        res.json({ message: "Base de données remplie avec succès !", tasks });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
