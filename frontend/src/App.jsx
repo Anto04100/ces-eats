@@ -1,20 +1,26 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
-  const [message, setMessage] = useState("");
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/")
+    fetch("http://localhost:3000/tasks")  // 🔗 Appel API backend
       .then(response => response.json())
-      .then(data => setMessage(data.message))
-      .catch(error => console.error("Erreur :", error));
+      .then(data => setTasks(data))
+      .catch(error => console.error("Erreur API :", error));
   }, []);
 
   return (
     <div style={{ textAlign: "center", fontFamily: "Arial" }}>
-      <h1>Frontend React 🚀</h1>
-      <h2>Message du backend :</h2>
-      <p>{message}</p>
+      <h1>Frontend CES'EATS 🚀</h1>
+      <h2>Liste des tâches :</h2>
+      <ul>
+        {tasks.map(task => (
+          <li key={task._id}>
+            {task.title} - {task.completed ? "✅ Fait" : "❌ À faire"}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

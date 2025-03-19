@@ -11,10 +11,13 @@ COPY package*.json ./
 RUN npm install
 
 # Copie des fichiers du projet
-COPY . .
+COPY backend ./backend
 
 # Exposition du port (modifie selon ton application)
 EXPOSE 3000
+
+# Définir le répertoire de travail du backend
+WORKDIR /app/backend
 
 # Commande de lancement
 CMD ["node", "index.js"]
